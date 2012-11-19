@@ -1,35 +1,40 @@
 *.py[cod]
+#Hangman Game
 
-# C extensions
-*.so
+import random
 
-# Packages
-*.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-lib
-lib64
+print 'Time to play Hangman'
+secret = random.choice(['crocodile','panda','mouse','pelican','penguin'])
+guesses = 'aeiou'
+turns = 5
 
-# Installer logs
-pip-log.txt
-
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
-
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
+while turns > 0:
+    missed = 0
+    for letter in secret:
+        if letter in guesses:
+            print letter,
+        else:
+            print '_',
+            missed += 1
+            
+    print
+    
+    if missed == 0:
+        print 'You Win!'
+        break
+        
+    guess = raw_input('guess a letter:')
+    guesses += guess
+    
+    if guess not in secret:
+        turns -= 1
+        print 'Nope.'
+        print turns, 'More Turns'
+        if turns < 5: print '   o   '
+        if turns < 4: print ' \_|_/ '
+        if turns < 3: print '   |   '
+        if turns < 2: print '  / \  '
+        if turns < 1: print ' d   b '
+        if turns == 0:
+            print 'The Answer is', secret
+        
